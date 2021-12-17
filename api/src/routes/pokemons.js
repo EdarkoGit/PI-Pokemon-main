@@ -2,16 +2,40 @@ const { Router } = require("express");
 const pokemons = Router();
 const { Pokemon } = require("../db");
 const { urlBasePokeapi } = require("../constants/urls");
-const { getAxios, definitionPromise, extractData } = require("../utils");
+const {
+  getAxios,
+  definitionPromise,
+  extractData,
+  extractDataOnePokemon,
+} = require("../utils");
 
 pokemons.get("/", async (req, res, next) => {
+  const { name } = req.query;
   try {
-    const data = await getAxios(`${urlBasePokeapi}/pokemon?limit=40`);
-    const arrPromises = data.results.map((item) => definitionPromise(item.url));
-    const pokeapiPokemons = await Promise.all(arrPromises);
-    const dbPokemons = await Pokemon.findAll();
-    const pokemons = await extractData([...pokeapiPokemons, ...dbPokemons]);
-    res.json(pokemons);
+    if (name) {
+      const dbPokemon = await Pokemon.findOne({ where: { name } });
+      if (dbPokemon !== null) {
+        res.json(await extractDataOnePokemon(dbPokemon));
+      } else {
+        try {
+          const pokeapiPokemon = await getAxios(
+            `${urlBasePokeapi}/pokemon/${name}`
+          );
+          res.json(await extractDataOnePokemon(pokeapiPokemon));
+        } catch (error) {
+          res.json({ msg: "Not found pokemon" });
+        }
+      }
+    } else {
+      const data = await getAxios(`${urlBasePokeapi}/pokemon?limit=40`);
+      const arrPromises = data.results.map((item) =>
+        definitionPromise(item.url)
+      );
+      const pokeapiPokemons = await Promise.all(arrPromises);
+      const dbPokemons = await Pokemon.findAll();
+      const pokemons = await extractData([...pokeapiPokemons, ...dbPokemons]);
+      res.json(pokemons);
+    }
   } catch (error) {
     next(error);
   }
