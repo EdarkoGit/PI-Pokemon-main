@@ -1,0 +1,44 @@
+{
+  "pokemons": [
+    {
+      "name": "edarko",
+      "hp": 150,
+      "attack": 150,
+      "defense": 150,
+      "speed":150,
+      "height":167,
+      "weight":70,
+      "types": [8,9]
+    },
+    {
+      "name": "martina",
+      "hp": 150,
+      "attack": 150,
+      "defense": 150,
+      "speed":150,
+      "height":165,
+      "weight":70,
+      "types": [3,13]
+    },
+    {
+      "name": "mariano",
+      "hp": 150,
+      "attack": 150,
+      "defense": 150,
+      "speed":150,
+      "height":170,
+      "weight":70,
+      "types": [10002]
+    }, 
+    {
+      "name": "tony",
+      "hp": 150,
+      "attack": 150,
+      "defense": 150,
+      "speed":150,
+      "height":170,
+      "weight":70,
+      "types": [10001]
+    } 
+  ]
+}
