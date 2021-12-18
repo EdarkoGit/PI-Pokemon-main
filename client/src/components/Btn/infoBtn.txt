@@ -1,0 +1,11 @@
+El componente Btn puede recibir props opcionales
+                                                
+*  content           = contenido del botón      
+*  color             = color de letra
+*  backgroundColor   = color de fondo
+*  fontSize          = tamaño de letra
+*  borderRadius      = rodondear bordes
+*  textAlign         = alineamiento del content
+*  padding           = ....
+*  width             = tamaño del botón
+
