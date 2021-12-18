@@ -1,8 +1,7 @@
 import styled from "styled-components";
-export const SearchStyle = styled.div`
-  display: grid;
-  justify-items: center;
-  align-items: center;
+import { displayGrid } from "../../styles/mixins";
+export const SearchStyle = styled.form`
+  ${displayGrid()};
   grid-template-columns: 200px 1fr;
   background-color: #3b3b3b;
   overflow: hidden;
@@ -16,12 +15,12 @@ export const SearchStyle = styled.div`
     width: 100%;
     background-color: inherit;
     &::placeholder {
-      color: #898989;
+      color: #d6d6d6;
       padding-left: 3px;
     }
   }
   .btnSearch {
-    color: #898989;
+    color: #d6d6d6;
     width: 100%;
   }
 `;
