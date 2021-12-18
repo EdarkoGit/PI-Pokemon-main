@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <NavbarStyle>
-      <ul>
+      <ul className="list">
         <li>
           <Link to="/">Logo</Link>
         </li>
