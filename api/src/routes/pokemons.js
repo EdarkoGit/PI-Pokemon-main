@@ -15,9 +15,7 @@ pokemons.post("/", async (req, res, next) => {
   try {
     await getAxios(`${urlBasePokeapi}/pokemon/${name}`);
     return res.json({ msg: "Already exists" });
-  } catch (error) {
-    console.log("Does not exist in pokeapi");
-  }
+  } catch (error) {}
   try {
     const [pokemon, created] = await Pokemon.findOrCreate({
       where: { name },
