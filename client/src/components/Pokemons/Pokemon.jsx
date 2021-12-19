@@ -10,7 +10,7 @@ const Pokemon = () => {
     <PokemonStyle>
       {allPokemons.length && whatRender === "allPokemons"
         ? renderPokemons(allPokemons)
-        : "null"}
+        : null}
     </PokemonStyle>
   );
 };
