@@ -8,6 +8,7 @@ import Delete from "./components/Delete/Delete";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllPokemons } from "./redux/actions/pokemons";
+import Detail from "./components/Detail/Detail";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
           <Route path="" element={<DefaultHome />} />
           <Route path="create" element={<Create />} />
           <Route path="delete" element={<Delete />} />
+          <Route path="detail/:id" element={<Detail />} />
         </Route>
       </Routes>
     </AppStyle>
