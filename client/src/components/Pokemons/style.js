@@ -1,3 +1,3 @@
 import styled from "styled-components";
 
-export const PokemonsStyle = styled.div``;
+export const PokemonStyle = styled.section``;

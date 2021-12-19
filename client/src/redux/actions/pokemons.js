@@ -24,7 +24,7 @@ export const getAllPokemons = () => {
     try {
       const payload = await axiosGet(`${URL_BASE_BACKEND}/pokemons`);
       dispatch(actionGenerator(SET_ALL_POKEMONS, payload));
-      dispatch(actionGenerator(SET_WHAT_RENDER, "allPokemon"));
+      dispatch(actionGenerator(SET_WHAT_RENDER, "allPokemons"));
     } catch (error) {
       console.log(error);
     }
