@@ -2,16 +2,24 @@ import { Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
 import Create from "./components/Create/Create";
-import Pokemons from "./components/Pokemons/Pokemons";
+import DefaultHome from "./components/DefaultHome/DefaultHome";
 import { AppStyle } from "./AppStyle";
 import Delete from "./components/Delete/Delete";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAllPokemons } from "./redux/actions/pokemons";
+
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllPokemons());
+  }, [dispatch]);
   return (
     <AppStyle className="App">
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home/*" element={<Home />}>
-          <Route path="" element={<Pokemons />} />
+          <Route path="" element={<DefaultHome />} />
           <Route path="create" element={<Create />} />
           <Route path="delete" element={<Delete />} />
         </Route>
