@@ -1,0 +1,1 @@
+export const SET_WHAT_RENDER = "SET_WHAT_RENDER";
