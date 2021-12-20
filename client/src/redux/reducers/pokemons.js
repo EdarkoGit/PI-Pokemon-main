@@ -1,9 +1,14 @@
-import { SET_ALL_POKEMONS, SET_POKEMON } from "../constants/pokemons";
+import {
+  SET_ALL_POKEMONS,
+  SET_POKEMON,
+  SET_SLICE_POKEMONS,
+} from "../constants/pokemons";
 
 const inicialState = {
   pokemon: {},
   allPokemons: [],
   copyAllPokemons: [],
+  slicePokemons: [],
 };
 
 export const pokemons = (state = inicialState, { type, payload }) => {
@@ -17,6 +22,11 @@ export const pokemons = (state = inicialState, { type, payload }) => {
       return {
         ...state,
         allPokemons: payload,
+      };
+    case SET_SLICE_POKEMONS:
+      return {
+        ...state,
+        slicePokemons: payload,
       };
     default:
       return state;
