@@ -1,5 +1,5 @@
 import React from "react";
-import Pokemon from "../Pokemons/Pokemon";
+import Pokemon from "../Pokemon/Pokemon";
 import Search from "../Search/Search";
 
 import { DefaultHomeStyle } from "./style";
