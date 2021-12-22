@@ -1,8 +1,13 @@
-import { SET_LIMIT, SET_WHAT_RENDER } from "../constants/flags";
+import {
+  SET_LIMIT,
+  SET_ON_CLICK_FILTER,
+  SET_WHAT_RENDER,
+} from "../constants/flags";
 
 const inicialState = {
   whatRender: "",
   limit: "9",
+  onClickFilter: false,
 };
 
 export const flags = (state = inicialState, { type, payload }) => {
@@ -16,6 +21,11 @@ export const flags = (state = inicialState, { type, payload }) => {
       return {
         ...state,
         limit: payload,
+      };
+    case SET_ON_CLICK_FILTER:
+      return {
+        ...state,
+        onClickFilter: payload,
       };
     default:
       return state;

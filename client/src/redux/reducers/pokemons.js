@@ -1,6 +1,7 @@
 import {
   SET_ALL_POKEMONS,
   SET_COPY_ALL_POKEMONS,
+  SET_FILTER_POKEMONS,
   SET_POKEMON,
   SET_SLICE_POKEMONS,
   SET_TYPES,
@@ -42,6 +43,11 @@ export const pokemons = (state = inicialState, { type, payload }) => {
       return {
         ...state,
         types: payload,
+      };
+    case SET_FILTER_POKEMONS:
+      return {
+        ...state,
+        filterPokemons: payload,
       };
     default:
       return state;

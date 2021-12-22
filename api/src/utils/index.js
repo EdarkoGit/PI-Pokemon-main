@@ -47,13 +47,17 @@ module.exports = {
         const attack = item.db
           ? item.attack
           : item.stats.find((item) => item.stat.name === "attack").base_stat;
-        result.push({
+        const pokemon = {
           id,
           img,
           name,
           types,
           attack,
-        });
+        };
+        if (item.db) {
+          pokemon.db = true;
+        }
+        result.push(pokemon);
       }
     }
     return result;

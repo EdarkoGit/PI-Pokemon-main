@@ -16,27 +16,47 @@ const style = {
 const Paged = () => {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.pokemons.allPokemons);
+  const filterPokemons = useSelector((state) => state.pokemons.filterPokemons);
   const whatRender = useSelector((state) => state.flags.whatRender);
+  const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const limit = useSelector((state) => state.flags.limit);
   const [numberPages, setNumberPages] = useState(0);
   const [arrButtons, setArrButtons] = useState([]);
-  //const [limit, setLimit] = useState("9");
 
   useEffect(() => {
-    const result = Math.ceil((allPokemons.length + 3) / 12);
-    setNumberPages(result);
-  }, [allPokemons]);
+    if (whatRender === "allPokemons") {
+      const result = Math.ceil((allPokemons.length + 3) / 12);
+      setNumberPages(result);
+    } else if (whatRender === "filterPokemons") {
+      const result = Math.ceil((filterPokemons.length + 3) / 12);
+      setNumberPages(result);
+    }
+  }, [allPokemons, filterPokemons, whatRender]);
+
   useEffect(() => {
     const result = getValueButtons(numberPages);
     setArrButtons(result);
   }, [numberPages]);
+
   useEffect(() => {
-    const result =
-      limit === "9"
-        ? allPokemons.slice(0, limit)
-        : allPokemons.slice(limit - 12, limit);
+    let result = [];
+    if (whatRender === "allPokemons") {
+      result =
+        limit === "9"
+          ? allPokemons.slice(0, limit)
+          : allPokemons.slice(limit - 12, limit);
+    } else if (whatRender === "filterPokemons") {
+      result =
+        limit === "9"
+          ? filterPokemons.slice(0, limit)
+          : filterPokemons.slice(limit - 12, limit);
+    }
     dispatch(actionGenerator(SET_SLICE_POKEMONS, result));
-  }, [allPokemons, limit, dispatch]);
+  }, [allPokemons, filterPokemons, whatRender, limit, dispatch]);
+
+  useEffect(() => {
+    dispatch(actionGenerator(SET_LIMIT, "9"));
+  }, [whatRender, onClickFilter, dispatch]);
   //---------------------------------------------------------------------------------
   const onClickSetLimit = (e) => {
     const valueButton = e.target.id;
@@ -57,11 +77,7 @@ const Paged = () => {
       dispatch(actionGenerator(SET_LIMIT, result));
     }
   };
-  if (
-    numberPages === 0 ||
-    whatRender === "pokemon" ||
-    whatRender === "filterPokemons"
-  ) {
+  if (numberPages === 1 || whatRender === "pokemon") {
     return null;
   }
   return (

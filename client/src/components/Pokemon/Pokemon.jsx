@@ -11,7 +11,7 @@ const Pokemon = () => {
     <PokemonStyle>
       {whatRender === "pokemon"
         ? renderOnePokemon(pokemon)
-        : whatRender === "allPokemons"
+        : whatRender === "allPokemons" || "filterPokemons"
         ? renderPokemons(slicePokemons)
         : null}
     </PokemonStyle>

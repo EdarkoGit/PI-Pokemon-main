@@ -1,4 +1,8 @@
-import { SET_FILTER_EXISTING, SET_FILTER_TYPES } from "../constants/forms";
+import {
+  SET_FILTER_EXISTING,
+  SET_FILTER_TYPES,
+  RESET_FORMS_FILTER,
+} from "../constants/forms";
 
 const inicialState = {
   filter: {
@@ -23,6 +27,14 @@ export const forms = (state = inicialState, { type, payload }) => {
         filter: {
           ...state.filter,
           types: payload,
+        },
+      };
+    case RESET_FORMS_FILTER:
+      return {
+        ...state,
+        filter: {
+          existing: "",
+          types: [],
         },
       };
     default:
