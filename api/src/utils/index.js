@@ -5,7 +5,10 @@ module.exports = {
     return result.data;
   },
   definitionPromise: function (url) {
-    return axios.get(url).then((data) => data.data);
+    return axios
+      .get(url)
+      .then((data) => data.data)
+      .catch(() => console.log(url));
   },
   extractDataOnePokemon: async function (item) {
     const result = {};
@@ -32,24 +35,26 @@ module.exports = {
     let result = [];
     for (let i = 0; i < arr.length; i++) {
       const item = arr[i];
-      const id = item.id;
-      const name = item.name;
-      const img = item.db
-        ? item.img
-        : item.sprites.other.dream_world.front_default;
-      const types = item.db
-        ? await extractDataGetTypes(item)
-        : item.types.map((item) => item.type.name);
-      const attack = item.db
-        ? item.attack
-        : item.stats.find((item) => item.stat.name === "attack").base_stat;
-      result.push({
-        id,
-        img,
-        name,
-        types,
-        attack,
-      });
+      if (item !== undefined) {
+        const id = item.id;
+        const name = item.name;
+        const img = item.db
+          ? item.img
+          : item.sprites.other.dream_world.front_default;
+        const types = item.db
+          ? await extractDataGetTypes(item)
+          : item.types.map((item) => item.type.name);
+        const attack = item.db
+          ? item.attack
+          : item.stats.find((item) => item.stat.name === "attack").base_stat;
+        result.push({
+          id,
+          img,
+          name,
+          types,
+          attack,
+        });
+      }
     }
     return result;
   },
