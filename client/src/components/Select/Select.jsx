@@ -10,6 +10,7 @@ const Select = () => {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.pokemons.types);
   const formTypes = useSelector((state) => state.forms.filter.types);
+  const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const [collapse, setCollapse] = useState(false);
   const [dataSelect, setDataSelect] = useState([]);
 
@@ -25,6 +26,9 @@ const Select = () => {
   useEffect(() => {
     dispatch(actionGenerator(SET_FILTER_TYPES, dataSelect));
   }, [dataSelect, dispatch]);
+  useEffect(() => {
+    setDataSelect([]);
+  }, [onClickFilter]);
   return (
     <SelectStyle>
       <Btn onClick={onClickCollapse}>

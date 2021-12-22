@@ -1,2 +1,3 @@
 export const SET_WHAT_RENDER = "SET_WHAT_RENDER";
 export const SET_LIMIT = "SET_LIMIT";
+export const SET_ON_CLICK_FILTER = "SET_ON_CLICK_FILTER";
