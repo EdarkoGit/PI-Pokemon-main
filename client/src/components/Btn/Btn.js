@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const Btn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: ${({ backgroundColor }) => backgroundColor || "#0071e3"};
   width: ${({ width }) => width || "120px"};
   color: ${({ color }) => color || "white"};

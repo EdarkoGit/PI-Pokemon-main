@@ -27,3 +27,7 @@ export const renderTypes = (types) => {
     </section>
   );
 };
+export const renderOnePokemon = (pokemon) => {
+  const { id, name, img, types } = pokemon;
+  return <Card key={id} id={id} name={name} img={img} types={types} />;
+};

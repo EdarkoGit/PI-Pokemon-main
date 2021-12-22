@@ -7,13 +7,14 @@ import { AppStyle } from "./AppStyle";
 import Delete from "./components/Delete/Delete";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getAllPokemons } from "./redux/actions/pokemons";
+import { getAllPokemons, getTypes } from "./redux/actions/pokemons";
 import Detail from "./components/Detail/Detail";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPokemons());
+    dispatch(getTypes());
   }, [dispatch]);
   return (
     <AppStyle className="App">

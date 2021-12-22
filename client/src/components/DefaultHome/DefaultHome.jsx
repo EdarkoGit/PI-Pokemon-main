@@ -1,4 +1,5 @@
 import React from "react";
+import Filter from "../Filter/Filter";
 import Paged from "../Paged/Paged";
 import Pokemon from "../Pokemon/Pokemon";
 import Search from "../Search/Search";
@@ -9,6 +10,7 @@ const DefaultHome = () => {
   return (
     <DefaultHomeStyle>
       <Search />
+      <Filter />
       <Paged />
       <Pokemon />
       <Paged />

@@ -7,6 +7,7 @@ import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import { blue } from "../../styles/colors";
 import { actionGenerator } from "../../utils/actions";
 import { SET_SLICE_POKEMONS } from "../../redux/constants/pokemons";
+import { SET_LIMIT } from "../../redux/constants/flags";
 
 const style = {
   color: "red",
@@ -15,9 +16,11 @@ const style = {
 const Paged = () => {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.pokemons.allPokemons);
+  const whatRender = useSelector((state) => state.flags.whatRender);
+  const limit = useSelector((state) => state.flags.limit);
   const [numberPages, setNumberPages] = useState(0);
   const [arrButtons, setArrButtons] = useState([]);
-  const [limit, setLimit] = useState("9");
+  //const [limit, setLimit] = useState("9");
 
   useEffect(() => {
     const result = Math.ceil((allPokemons.length + 3) / 12);
@@ -34,25 +37,33 @@ const Paged = () => {
         : allPokemons.slice(limit - 12, limit);
     dispatch(actionGenerator(SET_SLICE_POKEMONS, result));
   }, [allPokemons, limit, dispatch]);
+  //---------------------------------------------------------------------------------
   const onClickSetLimit = (e) => {
     const valueButton = e.target.id;
-    setLimit(valueButton);
+    dispatch(actionGenerator(SET_LIMIT, valueButton));
   };
   const onClickNextLimit = () => {
     const position = arrButtons[arrButtons.length - 1];
     if (limit !== `${position}`) {
       let result = parseInt(limit) + 12;
       result = `${result}`;
-      setLimit(result);
+      dispatch(actionGenerator(SET_LIMIT, result));
     }
   };
   const onClickBeforetLimit = () => {
     if (limit !== "9") {
       let result = limit - 12;
       result = `${result}`;
-      setLimit(result);
+      dispatch(actionGenerator(SET_LIMIT, result));
     }
   };
+  if (
+    numberPages === 0 ||
+    whatRender === "pokemon" ||
+    whatRender === "filterPokemons"
+  ) {
+    return null;
+  }
   return (
     <PagedStyle>
       <div>
