@@ -18,6 +18,7 @@ export const renderPokemons = (allPokemons) => {
 export const renderTypes = (types) => {
   return (
     <section>
+      types:
       {types.map((item, i) => {
         if (i === types.length - 1) {
           return <span key={item}> {item}. </span>;
