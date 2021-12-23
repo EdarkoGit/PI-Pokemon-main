@@ -2,6 +2,7 @@ import {
   SET_FILTER_EXISTING,
   SET_FILTER_TYPES,
   RESET_FORMS_FILTER,
+  SET_FORMS_ORDER,
 } from "../constants/forms";
 
 const inicialState = {
@@ -9,6 +10,7 @@ const inicialState = {
     existing: "",
     types: [],
   },
+  order: "default",
 };
 
 export const forms = (state = inicialState, { type, payload }) => {
@@ -36,6 +38,11 @@ export const forms = (state = inicialState, { type, payload }) => {
           existing: "",
           types: [],
         },
+      };
+    case SET_FORMS_ORDER:
+      return {
+        ...state,
+        order: payload,
       };
     default:
       return state;
