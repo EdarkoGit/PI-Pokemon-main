@@ -3,6 +3,7 @@ import { SET_WHAT_RENDER } from "../constants/flags";
 import {
   SET_ALL_POKEMONS,
   SET_COPY_ALL_POKEMONS,
+  SET_DETAIL_POKEMON,
   SET_POKEMON,
   SET_TYPES,
   URL_BASE_BACKEND,
@@ -40,6 +41,16 @@ export const getTypes = () => {
     try {
       const payload = await axiosGet(`${URL_BASE_BACKEND}/types`);
       dispatch(actionGenerator(SET_TYPES, payload));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const getDetailPokemon = (id) => {
+  return async (dispatch) => {
+    try {
+      const payload = await axiosGet(`${URL_BASE_BACKEND}/pokemons/${id}`);
+      dispatch(actionGenerator(SET_DETAIL_POKEMON, payload));
     } catch (error) {
       console.log(error);
     }

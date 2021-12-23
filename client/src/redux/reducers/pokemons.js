@@ -2,6 +2,7 @@ import {
   SET_ALL_POKEMONS,
   SET_COPY_ALL_POKEMONS,
   SET_COPY_FILTER_POKEMONS,
+  SET_DETAIL_POKEMON,
   SET_FILTER_POKEMONS,
   SET_POKEMON,
   SET_SLICE_POKEMONS,
@@ -16,6 +17,7 @@ const inicialState = {
   copyFilterPokemons: [],
   slicePokemons: [],
   types: [],
+  detailPokemon: {},
 };
 
 export const pokemons = (state = inicialState, { type, payload }) => {
@@ -54,6 +56,11 @@ export const pokemons = (state = inicialState, { type, payload }) => {
       return {
         ...state,
         copyFilterPokemons: payload,
+      };
+    case SET_DETAIL_POKEMON:
+      return {
+        ...state,
+        detailPokemon: payload,
       };
     default:
       return state;

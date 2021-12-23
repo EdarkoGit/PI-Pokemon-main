@@ -46,13 +46,15 @@ pokemons.get("/", async (req, res, next) => {
     if (name) {
       const dbPokemon = await Pokemon.findOne({ where: { name } });
       if (dbPokemon !== null) {
-        res.json(await extractDataOnePokemon(dbPokemon));
+        const result = await extractData([dbPokemon]);
+        res.json(result[0]);
       } else {
         try {
           const pokeapiPokemon = await getAxios(
             `${urlBasePokeapi}/pokemon/${name}`
           );
-          res.json(await extractDataOnePokemon(pokeapiPokemon));
+          const result = await extractData([pokeapiPokemon]);
+          res.json(result[0]);
         } catch (error) {
           res.json({ msg: "Not found pokemon" });
         }
