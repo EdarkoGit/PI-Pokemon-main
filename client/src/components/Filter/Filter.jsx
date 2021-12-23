@@ -1,14 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPokemons } from "../../redux/actions/pokemons";
 import {
   SET_ON_CLICK_FILTER,
   SET_WHAT_RENDER,
 } from "../../redux/constants/flags";
 import { RESET_FORMS_FILTER } from "../../redux/constants/forms";
-import { SET_FILTER_POKEMONS } from "../../redux/constants/pokemons";
+import {
+  SET_ALL_POKEMONS,
+  SET_COPY_FILTER_POKEMONS,
+  SET_FILTER_POKEMONS,
+} from "../../redux/constants/pokemons";
 import { actionGenerator } from "../../utils/actions";
 import { Btn } from "../Btn/Btn";
+import Order from "../Order/Order";
 import Radio from "../Radio/Radio";
 import Select from "../Select/Select";
 import {
@@ -24,10 +28,14 @@ const Filter = () => {
   const { types, existing } = useSelector((state) => state.forms.filter);
   const allTypes = useSelector((state) => state.pokemons.types);
   const allPokemons = useSelector((state) => state.pokemons.allPokemons);
+  const copyAllPokemons = useSelector(
+    (state) => state.pokemons.copyAllPokemons
+  );
   const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const onClickAllPokemons = (e) => {
     e.preventDefault();
-    dispatch(getAllPokemons());
+    dispatch(actionGenerator(SET_ALL_POKEMONS, copyAllPokemons));
+    dispatch(actionGenerator(SET_WHAT_RENDER, "allPokemons"));
   };
   const onClickFilterPokemons = (e) => {
     e.preventDefault();
@@ -42,6 +50,7 @@ const Filter = () => {
         result = filterByExisting(allPokemons, existing);
       }
       dispatch(actionGenerator(SET_FILTER_POKEMONS, result));
+      dispatch(actionGenerator(SET_COPY_FILTER_POKEMONS, result));
       dispatch(actionGenerator(SET_WHAT_RENDER, "filterPokemons"));
       dispatch(actionGenerator(SET_ON_CLICK_FILTER, !onClickFilter));
       dispatch(actionGenerator(RESET_FORMS_FILTER));
@@ -51,6 +60,7 @@ const Filter = () => {
     <FilterStyle>
       <Select />
       <Radio />
+      <Order />
       <Btn onClick={onClickFilterPokemons}>Filter</Btn>
       <Btn onClick={onClickAllPokemons}>All</Btn>
     </FilterStyle>

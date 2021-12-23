@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Radio = () => {
   const dispatch = useDispatch();
   const existing = useSelector((state) => state.forms.filter.existing);
+  const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const [collapse, setCollapse] = useState(false);
   const [dataRadio, setDataRadio] = useState("");
   const onClickCollapse = () => setCollapse(!collapse);
@@ -22,6 +23,9 @@ const Radio = () => {
   useEffect(() => {
     dispatch(actionGenerator(SET_FILTER_EXISTING, dataRadio));
   }, [dataRadio, dispatch]);
+  useEffect(() => {
+    setDataRadio("");
+  }, [onClickFilter]);
   return (
     <RadioStyle>
       <Btn onClick={onClickCollapse}>
