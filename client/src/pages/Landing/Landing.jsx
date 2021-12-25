@@ -7,7 +7,9 @@ const Landing = () => {
   return (
     <LandingStyle>
       <Link to="/home">
-        <Btn>Start</Btn>
+        <Btn width="100px" borderRadius="25px">
+          Start
+        </Btn>
       </Link>
     </LandingStyle>
   );

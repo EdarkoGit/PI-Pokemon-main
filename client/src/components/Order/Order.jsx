@@ -67,8 +67,8 @@ const Order = () => {
     }
   }, [order, whatRender, copyAllPokemons, copyFilterPokemons, dispatch]);
   return (
-    <OrderStyle>
-      <select onChange={onChangeDataOrder} value={order}>
+    <OrderStyle className="order">
+      <select className="select" onChange={onChangeDataOrder} value={order}>
         <option value="default">Default</option>
         <option value="a-z">A-Z</option>
         <option value="z-a">Z-A</option>

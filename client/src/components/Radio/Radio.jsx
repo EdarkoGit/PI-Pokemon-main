@@ -12,7 +12,11 @@ const Radio = () => {
   const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const [collapse, setCollapse] = useState(false);
   const [dataRadio, setDataRadio] = useState("");
-  const onClickCollapse = () => setCollapse(!collapse);
+
+  const onClickCollapse = (e) => {
+    e.preventDefault();
+    setCollapse(!collapse);
+  };
   const onClickDataRadio = (e) => {
     if (existing === e.target.id) {
       setDataRadio("");

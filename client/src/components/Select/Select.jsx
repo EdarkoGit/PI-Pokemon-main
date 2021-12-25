@@ -4,17 +4,24 @@ import { SelectStyle } from "./style";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGenerator } from "../../utils/actions";
-import { SET_FILTER_TYPES } from "../../redux/constants/forms";
+import {
+  SET_FILTER_TYPES,
+  SET_FORMS_CREATE_TYPES,
+} from "../../redux/constants/forms";
+import { useLocation } from "react-router-dom";
 
 const Select = () => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const types = useSelector((state) => state.pokemons.types);
-  const formTypes = useSelector((state) => state.forms.filter.types);
   const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const [collapse, setCollapse] = useState(false);
   const [dataSelect, setDataSelect] = useState([]);
 
-  const onClickCollapse = () => setCollapse(!collapse);
+  const onClickCollapse = (e) => {
+    e.preventDefault();
+    setCollapse(!collapse);
+  };
   const onClickCheckbox = (e) => {
     const valueCheckbox = parseInt(e.target.id);
     if (dataSelect.includes(valueCheckbox)) {
@@ -24,8 +31,12 @@ const Select = () => {
     }
   };
   useEffect(() => {
-    dispatch(actionGenerator(SET_FILTER_TYPES, dataSelect));
-  }, [dataSelect, dispatch]);
+    if (pathname === "/home/create") {
+      dispatch(actionGenerator(SET_FORMS_CREATE_TYPES, dataSelect));
+    } else {
+      dispatch(actionGenerator(SET_FILTER_TYPES, dataSelect));
+    }
+  }, [dataSelect, pathname, dispatch]);
   useEffect(() => {
     setDataSelect([]);
   }, [onClickFilter]);
@@ -46,7 +57,7 @@ const Select = () => {
                   value={item.name}
                   onClick={onClickCheckbox}
                   readOnly
-                  checked={formTypes.includes(item.id)}
+                  checked={dataSelect.includes(item.id)}
                 />
                 <label htmlFor={item.id}>{item.name}</label>
               </span>

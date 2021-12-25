@@ -4,7 +4,7 @@ import {
   SET_ON_CLICK_FILTER,
   SET_WHAT_RENDER,
 } from "../../redux/constants/flags";
-import { RESET_FORMS_FILTER } from "../../redux/constants/forms";
+
 import {
   SET_ALL_POKEMONS,
   SET_COPY_FILTER_POKEMONS,
@@ -53,16 +53,17 @@ const Filter = () => {
       dispatch(actionGenerator(SET_COPY_FILTER_POKEMONS, result));
       dispatch(actionGenerator(SET_WHAT_RENDER, "filterPokemons"));
       dispatch(actionGenerator(SET_ON_CLICK_FILTER, !onClickFilter));
-      dispatch(actionGenerator(RESET_FORMS_FILTER));
     }
   };
   return (
     <FilterStyle>
       <Select />
       <Radio />
-      <Order />
       <Btn onClick={onClickFilterPokemons}>Filter</Btn>
-      <Btn onClick={onClickAllPokemons}>All</Btn>
+      <Btn className="all" onClick={onClickAllPokemons}>
+        All
+      </Btn>
+      <Order />
     </FilterStyle>
   );
 };

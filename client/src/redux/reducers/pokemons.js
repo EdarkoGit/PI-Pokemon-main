@@ -5,6 +5,7 @@ import {
   SET_DETAIL_POKEMON,
   SET_FILTER_POKEMONS,
   SET_POKEMON,
+  SET_RES_CREATE_POKEMON,
   SET_SLICE_POKEMONS,
   SET_TYPES,
 } from "../constants/pokemons";
@@ -18,6 +19,7 @@ const inicialState = {
   slicePokemons: [],
   types: [],
   detailPokemon: {},
+  resCreatePokemon: {},
 };
 
 export const pokemons = (state = inicialState, { type, payload }) => {
@@ -61,6 +63,11 @@ export const pokemons = (state = inicialState, { type, payload }) => {
       return {
         ...state,
         detailPokemon: payload,
+      };
+    case SET_RES_CREATE_POKEMON:
+      return {
+        ...state,
+        resCreatePokemon: payload,
       };
     default:
       return state;
