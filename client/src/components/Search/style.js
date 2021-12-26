@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { displayGrid } from "../../styles/mixins";
 export const SearchStyle = styled.form`
+  margin-bottom: 20px;
   ${displayGrid()};
   grid-template-columns: 200px 1fr;
   background-color: #3b3b3b;

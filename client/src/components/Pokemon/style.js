@@ -5,7 +5,7 @@ export const PokemonStyle = styled.section`
   ${displayGrid()};
   .containerCards {
     ${displayGrid()};
-    gap: 5px;
+    gap: 10px;
     @media (min-width: 640px) {
       grid-template-columns: 1fr 1fr;
     }

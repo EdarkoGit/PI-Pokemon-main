@@ -5,8 +5,9 @@ export const FilterStyle = styled.form`
   justify-items: stretch;
   gap: 1px;
   grid-template-columns: repeat(3, 1fr);
-  max-width: 450px;
+  max-width: 500px;
   margin: 0 auto;
+  margin-bottom: 20px;
   .all {
     grid-column: 3/4;
   }

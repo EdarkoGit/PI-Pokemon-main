@@ -8,6 +8,8 @@ import { CreateStyle } from "./style";
 import { validate } from "./validate";
 import axios from "axios";
 import { createPokemon } from "../../redux/actions/pokemons";
+import { SET_FORMS_CREATE_TYPES } from "../../redux/constants/forms";
+import { actionGenerator } from "../../utils/actions";
 
 const initDataCreate = {
   name: "",
@@ -38,7 +40,6 @@ const Create = () => {
     if (resCreatePokemon.msg === "Pokemon created successfully") {
       setDataCreate(initDataCreate);
       setKeyFile(Date.now());
-      setKeySelect(Date.now());
     }
   }, [resCreatePokemon, dispatch]);
 
@@ -64,16 +65,21 @@ const Create = () => {
     });
   };
 
-  const onClickCreatePokemon = () => {
+  const onClickCreatePokemon = (e) => {
+    e.preventDefault();
     if (Object.keys(err).length === 0) {
       dispatch(createPokemon({ ...dataCreate, types: createTypes }));
+      dispatch(actionGenerator(SET_FORMS_CREATE_TYPES, []));
+      setKeySelect(Date.now());
     }
   };
-
+  const setTypes = (dataSelect) => {
+    dispatch(actionGenerator(SET_FORMS_CREATE_TYPES, dataSelect));
+  };
   return (
     <CreateStyle>
       <form action="">
-        <section>
+        <div className="name">
           <input
             type="text"
             placeholder="Name"
@@ -82,17 +88,30 @@ const Create = () => {
             value={dataCreate.name}
           />
           <span>{err.name ? err.name : null}</span>
-        </section>
+        </div>
         {inputStats(onChangeDataCreate, dataCreate, err)}
-        <section>
-          <input key={keyFile} type="file" onChange={onChangeImgPokemon} />
-          <span>{err.img ? err.img : null}</span>
-        </section>
-        <section>
-          <Select key={keySelect} />
+        <div className="containerFile">
+          <div className="image">
+            <Btn>Image</Btn>
+            <span>{err.img ? err.img : null}</span>
+          </div>
+          <input
+            className="file"
+            key={keyFile}
+            type="file"
+            onChange={onChangeImgPokemon}
+          />
+        </div>
+        <div className="types ">
+          <Select key={keySelect} initData={createTypes} setTypes={setTypes} />
           <span>{err.types ? err.types : null}</span>
-        </section>
-        <Btn onClick={onClickCreatePokemon}>Create</Btn>
+        </div>
+        <Btn
+          disabled={Object.keys(err).length !== 0}
+          onClick={onClickCreatePokemon}
+        >
+          Create
+        </Btn>
         {resCreatePokemon.msg ? <span>{resCreatePokemon.msg}</span> : null}
       </form>
     </CreateStyle>

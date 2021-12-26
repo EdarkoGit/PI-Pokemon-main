@@ -2,21 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Btn } from "../Btn/Btn";
 import { SelectStyle } from "./style";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-import { actionGenerator } from "../../utils/actions";
-import {
-  SET_FILTER_TYPES,
-  SET_FORMS_CREATE_TYPES,
-} from "../../redux/constants/forms";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Select = () => {
-  const { pathname } = useLocation();
-  const dispatch = useDispatch();
+const Select = ({ initData = [], setTypes = console.log("send funtion") }) => {
   const types = useSelector((state) => state.pokemons.types);
-  const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const [collapse, setCollapse] = useState(false);
-  const [dataSelect, setDataSelect] = useState([]);
+  const [dataSelect, setDataSelect] = useState(initData);
 
   const onClickCollapse = (e) => {
     e.preventDefault();
@@ -31,15 +22,8 @@ const Select = () => {
     }
   };
   useEffect(() => {
-    if (pathname === "/home/create") {
-      dispatch(actionGenerator(SET_FORMS_CREATE_TYPES, dataSelect));
-    } else {
-      dispatch(actionGenerator(SET_FILTER_TYPES, dataSelect));
-    }
-  }, [dataSelect, pathname, dispatch]);
-  useEffect(() => {
-    setDataSelect([]);
-  }, [onClickFilter]);
+    setTypes(dataSelect);
+  }, [dataSelect]);
   return (
     <SelectStyle>
       <Btn onClick={onClickCollapse}>

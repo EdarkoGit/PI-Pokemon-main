@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { morado } from "../../styles/colors";
 
 export const Btn = styled.button`
   display: flex;
@@ -17,5 +18,8 @@ export const Btn = styled.button`
   font-weight: bold;
   &:hover {
     box-shadow: 0 0 4px 0.1px #202020;
+  }
+  &:active {
+    background-color: ${morado};
   }
 `;

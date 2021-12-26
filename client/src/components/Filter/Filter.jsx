@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  SET_ON_CLICK_FILTER,
-  SET_WHAT_RENDER,
-} from "../../redux/constants/flags";
+import { SET_WHAT_RENDER } from "../../redux/constants/flags";
+import { SET_FILTER_TYPES } from "../../redux/constants/forms";
 
 import {
   SET_ALL_POKEMONS,
@@ -28,10 +26,13 @@ const Filter = () => {
   const { types, existing } = useSelector((state) => state.forms.filter);
   const allTypes = useSelector((state) => state.pokemons.types);
   const allPokemons = useSelector((state) => state.pokemons.allPokemons);
+  const initData = useSelector((state) => state.forms.filter.types);
   const copyAllPokemons = useSelector(
     (state) => state.pokemons.copyAllPokemons
   );
-  const onClickFilter = useSelector((state) => state.flags.onClickFilter);
+  const [keySelect, setKeySelect] = useState(Date.now());
+  const [keyRadio, setKeyRadio] = useState(Date.now() + 1);
+
   const onClickAllPokemons = (e) => {
     e.preventDefault();
     dispatch(actionGenerator(SET_ALL_POKEMONS, copyAllPokemons));
@@ -52,13 +53,18 @@ const Filter = () => {
       dispatch(actionGenerator(SET_FILTER_POKEMONS, result));
       dispatch(actionGenerator(SET_COPY_FILTER_POKEMONS, result));
       dispatch(actionGenerator(SET_WHAT_RENDER, "filterPokemons"));
-      dispatch(actionGenerator(SET_ON_CLICK_FILTER, !onClickFilter));
+      dispatch(actionGenerator(SET_FILTER_TYPES, []));
+      setKeySelect(Date.now());
+      setKeyRadio(Date.now() + 1);
     }
+  };
+  const setTypes = (dataSelect) => {
+    dispatch(actionGenerator(SET_FILTER_TYPES, dataSelect));
   };
   return (
     <FilterStyle>
-      <Select />
-      <Radio />
+      <Select key={keySelect} initData={initData} setTypes={setTypes} />
+      <Radio key={keyRadio} />
       <Btn onClick={onClickFilterPokemons}>Filter</Btn>
       <Btn className="all" onClick={onClickAllPokemons}>
         All
