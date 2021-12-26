@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_WHAT_RENDER } from "../../redux/constants/flags";
+import {
+  SET_ON_CLICK_FILTER,
+  SET_WHAT_RENDER,
+} from "../../redux/constants/flags";
 import { SET_FILTER_TYPES } from "../../redux/constants/forms";
 
 import {
@@ -27,6 +30,7 @@ const Filter = () => {
   const allTypes = useSelector((state) => state.pokemons.types);
   const allPokemons = useSelector((state) => state.pokemons.allPokemons);
   const initData = useSelector((state) => state.forms.filter.types);
+  const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const copyAllPokemons = useSelector(
     (state) => state.pokemons.copyAllPokemons
   );
@@ -54,6 +58,7 @@ const Filter = () => {
       dispatch(actionGenerator(SET_COPY_FILTER_POKEMONS, result));
       dispatch(actionGenerator(SET_WHAT_RENDER, "filterPokemons"));
       dispatch(actionGenerator(SET_FILTER_TYPES, []));
+      dispatch(actionGenerator(SET_ON_CLICK_FILTER, !onClickFilter));
       setKeySelect(Date.now());
       setKeyRadio(Date.now() + 1);
     }
