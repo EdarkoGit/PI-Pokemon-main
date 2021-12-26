@@ -1,10 +1,11 @@
-import { actionGenerator, axiosGet } from "../../utils/actions";
+import { actionGenerator, axiosGet, axiosPost } from "../../utils/actions";
 import { SET_WHAT_RENDER } from "../constants/flags";
 import {
   SET_ALL_POKEMONS,
   SET_COPY_ALL_POKEMONS,
   SET_DETAIL_POKEMON,
   SET_POKEMON,
+  SET_RES_CREATE_POKEMON,
   SET_TYPES,
   URL_BASE_BACKEND,
 } from "../constants/pokemons";
@@ -51,6 +52,22 @@ export const getDetailPokemon = (id) => {
     try {
       const payload = await axiosGet(`${URL_BASE_BACKEND}/pokemons/${id}`);
       dispatch(actionGenerator(SET_DETAIL_POKEMON, payload));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const createPokemon = (body) => {
+  return async (dispatch) => {
+    try {
+      const payload = await axiosPost(`${URL_BASE_BACKEND}/pokemons`, body);
+      dispatch(actionGenerator(SET_RES_CREATE_POKEMON, payload));
+      if (payload.msg === "Pokemon created successfully") {
+        dispatch(getAllPokemons());
+      }
+      setTimeout(() => {
+        dispatch(actionGenerator(SET_RES_CREATE_POKEMON, {}));
+      }, 2000);
     } catch (error) {
       console.log(error);
     }

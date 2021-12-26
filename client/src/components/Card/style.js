@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { lightBlack } from "../../styles/colors";
+import { blue, lightBlack } from "../../styles/colors";
 import { Link } from "react-router-dom";
 
 export const CardStyle = styled(Link)`
@@ -8,6 +8,11 @@ export const CardStyle = styled(Link)`
   width: 300px;
   height: 470px;
   background-color: ${lightBlack};
+  transition: transform 1s ease, background-color 1s ease;
+  &:hover {
+    transform: scale(1.05);
+    background-color: ${blue};
+  }
   div {
     display: grid;
     justify-items: start;
@@ -15,5 +20,9 @@ export const CardStyle = styled(Link)`
     picture {
       justify-self: center;
     }
+  }
+  .notFound {
+    justify-items: center;
+    align-self: center;
   }
 `;

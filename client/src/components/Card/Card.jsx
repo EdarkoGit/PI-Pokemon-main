@@ -13,7 +13,9 @@ const Card = ({ id, name, img, types }) => {
           <h2>{name}</h2>
           {renderTypes(types)}
         </div>
-      ) : null}
+      ) : (
+        <div className="notFound">Not found :(</div>
+      )}
     </CardStyle>
   );
 };

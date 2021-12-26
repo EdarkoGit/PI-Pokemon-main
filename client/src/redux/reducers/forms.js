@@ -3,6 +3,7 @@ import {
   SET_FILTER_TYPES,
   RESET_FORMS_FILTER,
   SET_FORMS_ORDER,
+  SET_FORMS_CREATE_TYPES,
 } from "../constants/forms";
 
 const inicialState = {
@@ -11,6 +12,9 @@ const inicialState = {
     types: [],
   },
   order: "default",
+  create: {
+    types: [],
+  },
 };
 
 export const forms = (state = inicialState, { type, payload }) => {
@@ -43,6 +47,13 @@ export const forms = (state = inicialState, { type, payload }) => {
       return {
         ...state,
         order: payload,
+      };
+    case SET_FORMS_CREATE_TYPES:
+      return {
+        ...state,
+        create: {
+          types: payload,
+        },
       };
     default:
       return state;

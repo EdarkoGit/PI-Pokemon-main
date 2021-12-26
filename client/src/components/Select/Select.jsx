@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Btn } from "../Btn/Btn";
 import { SelectStyle } from "./style";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-import { actionGenerator } from "../../utils/actions";
-import { SET_FILTER_TYPES } from "../../redux/constants/forms";
+import { useSelector } from "react-redux";
 
-const Select = () => {
-  const dispatch = useDispatch();
+const Select = ({ initData = [], setTypes = console.log("send funtion") }) => {
   const types = useSelector((state) => state.pokemons.types);
-  const formTypes = useSelector((state) => state.forms.filter.types);
-  const onClickFilter = useSelector((state) => state.flags.onClickFilter);
   const [collapse, setCollapse] = useState(false);
-  const [dataSelect, setDataSelect] = useState([]);
+  const [dataSelect, setDataSelect] = useState(initData);
 
-  const onClickCollapse = () => setCollapse(!collapse);
+  const onClickCollapse = (e) => {
+    e.preventDefault();
+    setCollapse(!collapse);
+  };
   const onClickCheckbox = (e) => {
     const valueCheckbox = parseInt(e.target.id);
     if (dataSelect.includes(valueCheckbox)) {
@@ -24,11 +22,8 @@ const Select = () => {
     }
   };
   useEffect(() => {
-    dispatch(actionGenerator(SET_FILTER_TYPES, dataSelect));
-  }, [dataSelect, dispatch]);
-  useEffect(() => {
-    setDataSelect([]);
-  }, [onClickFilter]);
+    setTypes(dataSelect);
+  }, [dataSelect]);
   return (
     <SelectStyle>
       <Btn onClick={onClickCollapse}>
@@ -46,7 +41,7 @@ const Select = () => {
                   value={item.name}
                   onClick={onClickCheckbox}
                   readOnly
-                  checked={formTypes.includes(item.id)}
+                  checked={dataSelect.includes(item.id)}
                 />
                 <label htmlFor={item.id}>{item.name}</label>
               </span>

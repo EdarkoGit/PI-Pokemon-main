@@ -22,7 +22,7 @@ const Detail = () => {
   return (
     <DetailStyle>
       {id ? (
-        <section>
+        <section className="detail">
           <picture>
             <img src={img} alt={name} />
           </picture>
